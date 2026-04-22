@@ -36,9 +36,9 @@ Het te analyseren proces betreft de bedrijfsinterne rapportage- en data-analysec
 | Productiesystemen | Handmatige invoer medewerkers | 2. Kopieer naar Excel | E-mail met bijlage | Afdelingsmanagers |
 | CRM-systeem | Verkoopdata (losse bestanden) | 3. Combineer bronnen handmatig | Presentatie (PowerPoint) | Financieel medewerkers |
 | Inkoopafdeling | Productiecijfers (maatwerk export) | 4. Bouw/update grafieken | Mondelinge toelichting | Inkoop / Verkoop |
-| Verkoopafdeling | Klantendata uit CRM | 5. Controleer formules | | |
-| | | 6. Deel bestand via e-mail | | |
-| | | 7. MT presenteert rapport | | |
+| Verkoopafdeling | Klantendata uit CRM | 5. Controleer formules | (geen aanvullende outputs) | (geen aanvullende klanten) |
+| (geen aanvullende leveranciers) | (geen aanvullende inputs) | 6. Deel bestand via e-mail | (geen aanvullende outputs) | (geen aanvullende klanten) |
+| (geen aanvullende leveranciers) | (geen aanvullende inputs) | 7. MT presenteert rapport | (geen aanvullende outputs) | (geen aanvullende klanten) |
 
 ---
 
@@ -92,9 +92,9 @@ Het te analyseren proces betreft de bedrijfsinterne rapportage- en data-analysec
 | CRM (API-sync) | Real-time voorraad & orderdata | 2. Laden in datawarehouse | MT KPI-overzichtsdashboard | Afdelingsmanagers |
 | Productiesystemen (API) | Klant- en smaakvoorkeurdata | 3. Datakwaliteitscheck (automatisch) | Automatisch gegenereerde rapporten | Financieel medewerkers |
 | Externe marktdata (optioneel) | Productiecijfers (automatisch via API) | 4. Dashboard automatisch vernieuwd | Exportmogelijkheid (PDF/Excel) | Inkoop / Verkoop |
-| | | 5. Gebruiker opent BI-tool (self-service) | Alerts bij afwijkende KPI's | Productontwikkeling |
-| | | 6. Filter/drill-down op eigen afdelingsdata | | |
-| | | 7. Inzicht direct beschikbaar voor besluit | | |
+| (geen aanvullende leveranciers) | (geen aanvullende inputs) | 5. Gebruiker opent BI-tool (self-service) | Alerts bij afwijkende KPI's | Productontwikkeling |
+| (geen aanvullende leveranciers) | (geen aanvullende inputs) | 6. Filter/drill-down op eigen afdelingsdata | (geen aanvullende outputs) | (geen aanvullende klanten) |
+| (geen aanvullende leveranciers) | (geen aanvullende inputs) | 7. Inzicht direct beschikbaar voor besluit | (geen aanvullende outputs) | (geen aanvullende klanten) |
 
 ---
 
@@ -128,24 +128,24 @@ Het te analyseren proces betreft de bedrijfsinterne rapportage- en data-analysec
 
 | Dimensie | Ist (nu) | Soll (gewenst) | Prioriteit | Actie om gap te dichten |
 |---|---|---|---|---|
-| Dataverzameling | Handmatig exporteren uit Odoo (CSV), meerdere bronnen apart | Automatische ETL-pipeline via API, alle bronnen geïntegreerd | 🔴 Kritiek | Ontwikkel ETL-pipeline; koppel Odoo, CRM en productie-API's aan datawarehouse |
-| Dataactualiteit | Statische snapshot op moment van export, altijd verouderd | Real-time of near-real-time data in dashboards | 🔴 Kritiek | Stel scheduled ETL in (bijv. elk uur); gebruik webhooks waar Odoo dit ondersteunt |
-| Rapportagetool | Excel, verspreiding via e-mail, geen versiebeheer | Centrale BI-tool met live dashboards en rolgebaseerde toegang | 🔴 Kritiek | Implementeer Apache Superset; migreer bestaande Excel-rapporten naar dashboards |
-| Toegangscontrole | Geen RBAC; iedereen ziet potentieel alle data | RBAC: elke afdeling ziet alleen eigen data, MT ziet alles | 🟠 Hoog | Configureer rollen en rechten in BI-tool per afdeling en functie |
-| Beveiliging | Geen 2FA, bestanden verspreid via e-mail | 2FA verplicht, encryptie, Europese hosting | 🟠 Hoog | Activeer 2FA in BI-tool; host op Europese server; stel TLS in voor alle verbindingen |
-| MT-inzicht | Geen overkoepelend dashboard; KPI's pas zichtbaar na handmatige rapportage | Live MT-dashboard met marges, cashflow, KPI's | 🟠 Hoog | Bouw MT-dashboard als eerste use case; valideer KPI-definitie met MT voor go-live |
-| Gebruikersadoptie | Ontevreden gebruikers, workarounds met Excel buiten systemen om | Brede adoptie, tool gebruikt als standaard voor rapportage | 🟠 Hoog | Betrek eindgebruikers bij ontwerp; bied training aan; sluit aan bij Excel-werkwijze |
-| Schaalbaarheid | Excel crasht bij grote datasets; geen schaaloptie | Systeem verwerkt grote volumes zonder performanceverlies | 🟡 Middel | Gebruik DuckDB of PostgreSQL als datawarehouse; test met productievolume vóór go-live |
-| Datakwaliteit | Geen validatie; fouten in formules en kopieerpasta | Automatische validatieregels in ETL; datakwaliteitsrapportage | 🟡 Middel | Definieer validatieregels per databron; bouw datakwaliteitsdashboard voor beheerteam |
-| Excel-transitie | Excel is enige werktool; medewerkers kennen geen alternatief | Excel blijft mogelijk als exportformaat; invoer via BI-tool of Odoo | 🟡 Middel | Behoud Excel-exportfunctie als 'vangnet'; stimuleer actief gebruik van dashboards |
+| Dataverzameling | Handmatig exporteren uit Odoo (CSV), meerdere bronnen apart | Automatische ETL-pipeline via API, alle bronnen geïntegreerd | Kritiek | Ontwikkel ETL-pipeline; koppel Odoo, CRM en productie-API's aan datawarehouse |
+| Dataactualiteit | Statische snapshot op moment van export, altijd verouderd | Real-time of near-real-time data in dashboards | Kritiek | Stel scheduled ETL in (bijv. elk uur); gebruik webhooks waar Odoo dit ondersteunt |
+| Rapportagetool | Excel, verspreiding via e-mail, geen versiebeheer | Centrale BI-tool met live dashboards en rolgebaseerde toegang | Kritiek | Implementeer Apache Superset; migreer bestaande Excel-rapporten naar dashboards |
+| Toegangscontrole | Geen RBAC; iedereen ziet potentieel alle data | RBAC: elke afdeling ziet alleen eigen data, MT ziet alles | Hoog | Configureer rollen en rechten in BI-tool per afdeling en functie |
+| Beveiliging | Geen 2FA, bestanden verspreid via e-mail | 2FA verplicht, encryptie, Europese hosting | Hoog | Activeer 2FA in BI-tool; host op Europese server; stel TLS in voor alle verbindingen |
+| MT-inzicht | Geen overkoepelend dashboard; KPI's pas zichtbaar na handmatige rapportage | Live MT-dashboard met marges, cashflow, KPI's | Hoog | Bouw MT-dashboard als eerste use case; valideer KPI-definitie met MT voor go-live |
+| Gebruikersadoptie | Ontevreden gebruikers, workarounds met Excel buiten systemen om | Brede adoptie, tool gebruikt als standaard voor rapportage | Hoog | Betrek eindgebruikers bij ontwerp; bied training aan; sluit aan bij Excel-werkwijze |
+| Schaalbaarheid | Excel crasht bij grote datasets; geen schaaloptie | Systeem verwerkt grote volumes zonder performanceverlies | Middel | Gebruik DuckDB of PostgreSQL als datawarehouse; test met productievolume vóór go-live |
+| Datakwaliteit | Geen validatie; fouten in formules en kopieerpasta | Automatische validatieregels in ETL; datakwaliteitsrapportage | Middel | Definieer validatieregels per databron; bouw datakwaliteitsdashboard voor beheerteam |
+| Excel-transitie | Excel is enige werktool; medewerkers kennen geen alternatief | Excel blijft mogelijk als exportformaat; invoer via BI-tool of Odoo | Middel | Behoud Excel-exportfunctie als 'vangnet'; stimuleer actief gebruik van dashboards |
 
 ### 7.1 Prioriteitenlegenda
 
 | Prioriteit | Betekenis | Gaps |
 |---|---|---|
-| 🔴 Kritiek | Direct aanpakken — blokkeert go-live | Dataverzameling, Dataactualiteit, Rapportagetool |
-| 🟠 Hoog | Aanpakken in fase 1–2 | Toegangscontrole, Beveiliging, MT-inzicht, Adoptie |
-| 🟡 Middel | Aanpakken in fase 2–3 | Schaalbaarheid, Datakwaliteit, Excel-transitie |
+| Kritiek | Direct aanpakken — blokkeert go-live | Dataverzameling, Dataactualiteit, Rapportagetool |
+| Hoog | Aanpakken in fase 1–2 | Toegangscontrole, Beveiliging, MT-inzicht, Adoptie |
+| Middel | Aanpakken in fase 2–3 | Schaalbaarheid, Datakwaliteit, Excel-transitie |
 
 ---
 
